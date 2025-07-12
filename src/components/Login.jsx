@@ -1,28 +1,34 @@
 import axios from "axios";
 import React, { useCallback, useState } from "react";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
+import { useNavigate } from "react-router-dom";
+import { API_URL } from "../utils/constants";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("apoorvjha21@gmail.com");
+  const [password, setPassword] = useState("Apoorv@1234");
   const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogin = useCallback(async () => {
     try {
       const res = await axios.post(
-        "http://localhost:7777/login",
+        `${API_URL}/login`,
         {
           emailId: email,
           password: password,
         },
         { withCredentials: true }
       );
-      const data = await res.data;
 
-      console.log(data);
+      dispatch(addUser(res.data));
+      navigate("/");
     } catch (err) {
       console.log(err);
     }
-  }, [email, password]);
+  }, [email, password, dispatch, navigate]);
 
   return (
     <div className="flex justify-center items-center mt-10">
