@@ -34,7 +34,9 @@ export default function Body() {
   return (
     <div>
       <NavBar />
-      <Outlet />
+      <main className="pb-20">
+        <Outlet />
+      </main>
       <Footer />
     </div>
   );
