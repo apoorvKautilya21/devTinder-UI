@@ -18,4 +18,4 @@
 - On login navigate to home and navbar should show correct data
 - If already login then on refresh dont ask user to login again, make an API call to find out whether user is logged in or not
 - Logout
--
+- Get the feed and create the user card
