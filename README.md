@@ -13,3 +13,9 @@
 - Install axios
 - Fix cors error by installing cors on BE, and add middleware cors({origin, credentials: true});
 - whenever making an api call pass withCredentials: true in axios
+- Intall @reduxjs/toolkit react-redux and set up a store
+- Fix login
+- On login navigate to home and navbar should show correct data
+- If already login then on refresh dont ask user to login again, make an API call to find out whether user is logged in or not
+- Logout
+-

@@ -9,6 +9,7 @@ export default function Login() {
   const [email, setEmail] = useState("apoorvjha21@gmail.com");
   const [password, setPassword] = useState("Apoorv@1234");
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -27,6 +28,7 @@ export default function Login() {
       navigate("/");
     } catch (err) {
       console.log(err);
+      setError(err?.response?.data || "Something went wrong");
     }
   }, [email, password, dispatch, navigate]);
 
@@ -93,7 +95,12 @@ export default function Login() {
               </label>
             </div>
           </label>
-          <div className="card-actions justify-center">
+          {error && (
+            <div className="text-red-500">
+              <span>{error}</span>
+            </div>
+          )}
+          <div className="card-actions justify-center m-2">
             <button className="btn btn-primary" onClick={handleLogin}>
               Login
             </button>
