@@ -87,7 +87,7 @@ export default function Requests() {
               {age && gender && (
                 <p className="text-gray-500">{`${age}, ${gender}`}</p>
               )}
-              <p className="text-gray-500">{about}</p>
+              <p className="text-gray-500 mt-4">{about}</p>
             </div>
             <div className="flex flex-row gap-2 mt-4 flex-1 justify-end">
               <button

@@ -2,25 +2,41 @@ import axios from "axios";
 import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { API_URL } from "../utils/constants";
-import { setFeed } from "../utils/feedSlice";
+import { removeAllFeed, setFeed } from "../utils/feedSlice";
 import UserCard from "../components/UserCard";
+import { useNavigate } from "react-router-dom";
 
 export default function Feed() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const feed = useSelector((state) => state.feed);
+  const isFeedPresent = !feed || feed.length === 0;
 
   const fetchFeed = useCallback(async () => {
-    const res = await axios.get(`${API_URL}/user/feed`, {
-      withCredentials: true,
-    });
+    try {
+      const res = await axios.get(`${API_URL}/user/feed`, {
+        withCredentials: true,
+      });
 
-    dispatch(setFeed(res.data));
-  }, [dispatch]);
+      dispatch(setFeed(res.data));
+    } catch (error) {
+      if (error?.response?.status === 401) {
+        navigate("/login");
+      }
+    }
+  }, [dispatch, navigate]);
 
   useEffect(() => {
     if (!feed) {
       fetchFeed();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFeedPresent]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(removeAllFeed());
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

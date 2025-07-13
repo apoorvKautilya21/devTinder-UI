@@ -1,7 +1,29 @@
-import React from "react";
+import axios from "axios";
+import React, { useCallback } from "react";
+import { API_URL } from "../utils/constants";
+import { useDispatch } from "react-redux";
+import { removeFeed } from "../utils/feedSlice";
 
-export default function UserCard({ user, isLoading }) {
+export default function UserCard({ user, isLoading, removeOnClick }) {
   const { firstName, lastName, age, gender, about, photoUrl } = user;
+  const dispatch = useDispatch();
+
+  const handleSendRequest = useCallback(
+    async (status, userId) => {
+      try {
+        await axios.post(
+          `${API_URL}/request/send/${status}/${userId}`,
+          {},
+          { withCredentials: true }
+        );
+
+        dispatch(removeFeed(userId));
+      } catch {
+        // handle error
+      }
+    },
+    [dispatch]
+  );
 
   if (isLoading) {
     return (
@@ -28,8 +50,30 @@ export default function UserCard({ user, isLoading }) {
         )}
         <p className="mt-4">{about}</p>
         <div className="card-actions justify-center my-4">
-          <button className="btn btn-primary">Ignore</button>
-          <button className="btn btn-secondary">Interested</button>
+          <button
+            className="btn btn-primary"
+            onClick={() => {
+              if (removeOnClick) {
+                return;
+              }
+
+              handleSendRequest("ignored", user._id);
+            }}
+          >
+            Ignore
+          </button>
+          <button
+            className="btn btn-secondary"
+            onClick={() => {
+              if (removeOnClick) {
+                return;
+              }
+
+              handleSendRequest("interested", user._id);
+            }}
+          >
+            Interested
+          </button>
         </div>
       </div>
     </div>

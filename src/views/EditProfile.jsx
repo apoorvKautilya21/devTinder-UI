@@ -126,7 +126,7 @@ export default function EditProfile({ user }) {
           </div>
         </div>
       </div>
-      <UserCard user={formData} isLoading={isLoading} />
+      <UserCard user={formData} isLoading={isLoading} removeOnClick />
       {showToaster && (
         <Notification
           message="Profile updated successfully"
