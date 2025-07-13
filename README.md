@@ -21,3 +21,4 @@
 - Get the feed and ceate the user card
 - Edit profile feature
 - Accept reject connection request
+- Login refactor and Signup page

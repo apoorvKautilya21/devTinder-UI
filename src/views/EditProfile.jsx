@@ -1,19 +1,11 @@
 import React, { useCallback, useMemo, useState } from "react";
-import TextBox from "../components/TextBox";
-import Dropdown from "../components/Dropdown";
-import TextArea from "../components/TextArea";
 import UserCard from "../components/UserCard";
 import axios from "axios";
 import { API_URL } from "../utils/constants";
 import { addUser } from "../utils/userSlice";
 import { useDispatch } from "react-redux";
 import Notification from "../components/Notification";
-
-const ComponentMap = {
-  text: TextBox,
-  dropdown: Dropdown,
-  textarea: TextArea,
-};
+import { ComponentMap } from "../components/ComponentsMap";
 
 export default function EditProfile({ user }) {
   const [formData, setFormData] = useState({
