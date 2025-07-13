@@ -3,7 +3,7 @@ import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { API_URL } from "../utils/constants";
 import { setFeed } from "../utils/feedSlice";
-import UserCard from "./UserCard";
+import UserCard from "../components/UserCard";
 
 export default function Feed() {
   const dispatch = useDispatch();
@@ -24,12 +24,19 @@ export default function Feed() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // if (!feed)
-  //   return (
-  //     <div className="flex justify-center items-center min-h-screen">
-  //       <span className="loading loading-bars loading-lg"></span>
-  //     </div>
-  //   );
+  if (!feed)
+    return (
+      <div className="flex justify-center w-screen mt-20">
+        <span className="loading loading-bars loading-lg"></span>
+      </div>
+    );
+
+  if (feed.length === 0)
+    return (
+      <div className="text-center my-10">
+        <h1 className="text-2xl font-bold">No feed found</h1>
+      </div>
+    );
 
   return (
     <div className="flex justify-center items-center my-6">
