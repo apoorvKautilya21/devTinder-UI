@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function UserCard({ user, isLoading }) {
-  console.log(user);
   const { firstName, lastName, age, gender, about, photoUrl } = user;
 
   if (isLoading) {
