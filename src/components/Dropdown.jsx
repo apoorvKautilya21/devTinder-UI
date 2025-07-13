@@ -5,8 +5,6 @@ export default function Dropdown({ label, options, onChange, value }) {
     options.find((option) => option.value === value)?.value || ""
   );
 
-  console.log(selected);
-
   return (
     <label className="form-control w-full max-w-xs">
       <div className="label">

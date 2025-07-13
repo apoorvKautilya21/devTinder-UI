@@ -27,7 +27,6 @@ export default function Login() {
       dispatch(addUser(res.data));
       navigate("/");
     } catch (err) {
-      console.log(err);
       setError(err?.response?.data || "Something went wrong");
     }
   }, [email, password, dispatch, navigate]);

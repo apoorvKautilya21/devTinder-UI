@@ -31,8 +31,6 @@ export default function Feed() {
   //     </div>
   //   );
 
-  console.log(feed);
-
   return (
     <div className="flex justify-center items-center my-6">
       {feed && <UserCard user={feed[0]} />}
