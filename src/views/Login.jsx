@@ -99,8 +99,8 @@ export default function Login() {
               <span>{error}</span>
             </div>
           )}
-          <div className="card-actions justify-center m-2">
-            <button className="btn btn-primary" onClick={handleLogin}>
+          <div className="card-actions justify-center">
+            <button className="btn btn-primary w-full" onClick={handleLogin}>
               Login
             </button>
           </div>
