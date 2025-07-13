@@ -1,7 +1,11 @@
 import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { API_URL } from "../utils/constants";
-import { addRequests, removeRequests } from "../utils/requestsSlice";
+import {
+  addRequests,
+  removeRequests,
+  removeAllRequests,
+} from "../utils/requestsSlice";
 import axios from "axios";
 
 export default function Requests() {
@@ -23,10 +27,29 @@ export default function Requests() {
     fetchRequests();
 
     return () => {
-      dispatch(removeRequests());
+      dispatch(removeAllRequests());
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleClick = useCallback(
+    async (id, status) => {
+      try {
+        await axios.post(
+          `${API_URL}/request/review/${status}/${id}`,
+          {},
+          {
+            withCredentials: true,
+          }
+        );
+
+        dispatch(removeRequests(id));
+      } catch {
+        // handle error
+      }
+    },
+    [dispatch]
+  );
 
   if (!requests)
     return (
@@ -67,8 +90,18 @@ export default function Requests() {
               <p className="text-gray-500">{about}</p>
             </div>
             <div className="flex flex-row gap-2 mt-4 flex-1 justify-end">
-              <button className="btn btn-secondary mx-2">Reject</button>
-              <button className="btn btn-primary mx-2">Accept</button>
+              <button
+                className="btn btn-secondary mx-2"
+                onClick={() => handleClick(request.requestId, "rejected")}
+              >
+                Reject
+              </button>
+              <button
+                className="btn btn-primary mx-2"
+                onClick={() => handleClick(request.requestId, "accepted")}
+              >
+                Accept
+              </button>
             </div>
           </div>
         );
