@@ -22,3 +22,6 @@
 - Edit profile feature
 - Accept reject connection request
 - Login refactor and Signup page
+
+Log in using
+ssh -i "devTinder-secret.pem" ubuntu@ec2-13-60-59-199.eu-north-1.compute.amazonaws.com
